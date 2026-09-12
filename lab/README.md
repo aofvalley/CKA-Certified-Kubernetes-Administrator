@@ -6,6 +6,8 @@ La [ficha oficial CKA](https://training.linuxfoundation.org/certification/certif
 
 Revisa otra vez la versión y las reglas en tu portal antes del examen: pueden cambiar. La documentación oficial prevalece sobre las notas y soluciones del repositorio.
 
+**Referencia rápida:** [chuleta CKA en español](../cheatsheet/cka-cheatsheet-es.md), con comandos, verificaciones y errores típicos. Úsala para practicar, no como material de consulta durante el examen.
+
 ## Entrar y trabajar
 
 Desde la raíz del repositorio, con Docker en marcha:
