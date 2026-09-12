@@ -30,6 +30,8 @@ If this was useful, a star helps others find it.
 
 ## Quick Start (< 4 Weeks to Exam)
 
+**¿Examen el 23 de septiembre?** El [laboratorio intensivo y ruta de 10 días en español](lab/README.md) añade tres nodos, NetworkPolicies reales, métricas, Ingress y Gateway API, sin cambiar tu kubeconfig habitual. Empieza con `bash scripts/lab.sh up` y entra con `bash scripts/lab.sh shell`.
+
 If you're time-pressured, here's the fast track:
 
 1. **Start a practice cluster** _(if needed)_ — if `kubectl` says connection refused or you don't have a local cluster yet: `bash scripts/init-cluster.sh`. This creates a kind-based k8s 1.35.1 cluster with one command. [Read more](#local-cluster-setup).
@@ -155,7 +157,7 @@ CKA-Certified-Kubernetes-Administrator/
 
 ## Local Cluster Setup — Practice with Kind
 
-**Don't have a Kubernetes cluster?** Use the included script to bootstrap a local k8s 1.35.1 cluster via [kind](https://kind.sigs.k8s.io/) (Kubernetes in Docker). Perfect for running through all 31 exercises without needing a kubeadm setup.
+**Don't have a Kubernetes cluster?** Use the included script to bootstrap a basic local k8s 1.35.1 cluster via [kind](https://kind.sigs.k8s.io/) (Kubernetes in Docker). This single-node setup does not cover all 31 exercises: NetworkPolicy enforcement, metrics and routing controllers require add-ons, and package-based kubeadm upgrades require Linux VMs or a simulator. For a separate, multi-node environment with those add-ons, use the [intensive lab](lab/README.md).
 
 ### Quick Start: One Command
 
@@ -3947,4 +3949,3 @@ Every star and issue makes this repo more visible to the next person Googling "C
 ### Topics
 
 `cka` `cka-exam` `cka-certification` `cka-study-guide` `cka-practice-questions` `cka-cheat-sheet` `certified-kubernetes-administrator` `kubernetes` `kubernetes-certification` `kubernetes-exam` `cka-2026` `kubectl` `kubeadm` `etcd-backup` `kubernetes-troubleshooting` `cka-tips` `killer-sh` `kubernetes-rbac` `gateway-api` `helm` `kubernetes-v1.35` `cka-mock-exam` `kubectl-cheatsheet`
-

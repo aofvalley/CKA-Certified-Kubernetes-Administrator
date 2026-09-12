@@ -6,6 +6,10 @@ on:
     paths:
       - 'skeletons/**'
       - 'exercises/**'
+      - 'lab/**'
+      - 'scripts/lab.sh'
+      - 'scripts/check-lab.sh'
+      - 'scripts/exam-setup.sh'
       - '**.yaml'
       - '**.yml'
   pull_request:
@@ -13,10 +17,32 @@ on:
     paths:
       - 'skeletons/**'
       - 'exercises/**'
+      - 'lab/**'
+      - 'scripts/lab.sh'
+      - 'scripts/check-lab.sh'
+      - 'scripts/exam-setup.sh'
       - '**.yaml'
       - '**.yml'
 
 jobs:
+  lab-tests:
+    name: Lab configuration and CLI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install YAML parser
+        run: python -m pip install -r lab/requirements-dev.txt
+      - name: Check shell syntax
+        run: |
+          for script in scripts/lab.sh scripts/check-lab.sh scripts/exam-setup.sh lab/bashrc; do
+            bash -n "$script"
+          done
+      - name: Test lab configuration and isolation
+        run: python -m unittest discover -s lab/tests -v
+
   yamllint:
     name: YAML Lint
     runs-on: ubuntu-latest

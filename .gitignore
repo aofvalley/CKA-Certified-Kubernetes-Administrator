@@ -34,3 +34,6 @@ __pycache__/
 *.tfstate
 *.tfstate.backup
 .terraform/
+
+# Isolated CKA lab credentials, downloads and practice answers
+.lab/

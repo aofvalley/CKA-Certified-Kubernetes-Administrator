@@ -1,0 +1,93 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: web-data
+spec:
+  storageClassName: standard
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 64Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: cka-10days-worker2
+      initContainers:
+        - name: content
+          image: busybox:1.37.0
+          command: [sh, -c, "echo CKA-lab-ok > /data/index.html"]
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      containers:
+        - name: nginx
+          image: nginx:1.28
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 100m
+              memory: 32Mi
+            limits:
+              memory: 128Mi
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+          volumeMounts:
+            - name: data
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: web-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+spec:
+  selector:
+    app: web
+  ports:
+    - port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: allowed
+  labels:
+    access: allowed
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: cka-10days-worker
+  containers:
+    - name: client
+      image: busybox:1.37.0
+      command: [sh, -c, "sleep 3600"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: denied
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: cka-10days-worker
+  containers:
+    - name: client
+      image: busybox:1.37.0
+      command: [sh, -c, "sleep 3600"]

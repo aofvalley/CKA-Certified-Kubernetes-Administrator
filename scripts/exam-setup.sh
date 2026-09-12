@@ -26,6 +26,7 @@ source <(kubectl completion bash)
 complete -o default -F __start_kubectl k
 
 # --- vim YAML config ---
+if [[ "${EXAM_CONFIGURE_VIM:-true}" == "true" ]]; then
 cat <<'EOF' >> ~/.vimrc
 set expandtab
 set tabstop=2
@@ -33,13 +34,14 @@ set shiftwidth=2
 set number
 set autoindent
 EOF
+fi
 
 # --- etcdctl ---
 export ETCDCTL_API=3
 
 # --- Verify ---
 echo "--- Setup complete ---"
-k get nodes
+kubectl get nodes
 echo "Aliases: k, kn, kgp, kgs, kgn, kd, kaf, kdel"
 echo "Variables: \$do (dry-run), \$now (force delete)"
 echo "etcdctl API version: $ETCDCTL_API"

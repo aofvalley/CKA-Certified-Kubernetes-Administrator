@@ -1,0 +1,17 @@
+installation:
+  kubernetesProvider: Kind
+  controlPlaneReplicas: 1
+  calicoNetwork:
+    bgp: Disabled
+    linuxDataplane: Iptables
+    ipPools:
+      - cidr: 192.168.0.0/16
+        encapsulation: VXLAN
+        natOutgoing: Enabled
+        nodeSelector: all()
+apiServer:
+  enabled: false
+goldmane:
+  enabled: false
+whisker:
+  enabled: false

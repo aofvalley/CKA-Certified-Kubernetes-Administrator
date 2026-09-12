@@ -1,0 +1,9 @@
+# Loaded only by `bash scripts/lab.sh shell`; does not change the user's shell.
+export EXAM_CONFIGURE_VIM=false
+source "$CKA_LAB_ROOT/scripts/exam-setup.sh"
+export CKA_LAB_VIMRC="$CKA_LAB_ROOT/lab/vimrc"
+export VIMINIT='execute "source " . fnameescape($CKA_LAB_VIMRC)'
+export HISTFILE="$CKA_LAB_ROOT/.lab/bash_history"
+PS1='[CKA LAB] \w \$ '
+cd "$CKA_LAB_ROOT" || return
+printf '\nLaboratorio aislado. Salir: exit. Guia: lab/README.md\n'
