@@ -22,7 +22,8 @@ export do='--dry-run=client -o yaml'
 export now='--force --grace-period=0'
 
 # --- kubectl bash completion ---
-source <(kubectl completion bash)
+# ponytail: bash 3.2 (macOS) ignores `source <(...)`; this form works in every bash
+source /dev/stdin <<<"$(kubectl completion bash)"
 complete -o default -F __start_kubectl k
 
 # --- vim YAML config ---
