@@ -2,6 +2,8 @@
 
 **Referencia para preparar Kubernetes 1.35 · revisada el 13/09/2026.**
 
+**Para memorizar:** [versión compacta revisada](cka-cheatsheet-memoria.md). **Para usar las VMs:** [guía del estudiante](../lab/GUIA-ESTUDIANTE.md). Esta referencia amplia complementa la práctica local desde 1.34 hasta 1.35.
+
 Basada en los ejercicios, la chuleta y los procedimientos de diagnóstico del repositorio, contrastando los puntos conflictivos con documentación oficial. **Para estudiar y practicar: no es material autorizado para consultar durante el examen.** Allí usa exclusivamente los [recursos permitidos por Linux Foundation](https://docs.linuxfoundation.org/tc-docs/certification/certification-resources-allowed).
 
 **Regla de oro:** host correcto → contexto/namespace → cambio mínimo → verificar el requisito → guardar donde se pide → salir del host.
@@ -127,7 +129,7 @@ k -n "$NS" set env deployment/"$DEP" --from=secret/app-secret
 
 k -n "$NS" set resources deployment/"$DEP" -c "$CONTAINER" \
   --requests=cpu=100m,memory=64Mi --limits=cpu=500m,memory=128Mi
-k -n "$NS" autoscale deployment "$DEP" --min=1 --max=5 --cpu-percent=50
+k -n "$NS" autoscale deployment "$DEP" --min=1 --max=5 --cpu=50%
 k -n "$NS" describe hpa "$DEP"
 k -n "$NS" get hpa "$DEP" -w
 ```
@@ -504,12 +506,13 @@ Dos pasadas: tareas claras primero; si te atascas 6–8 minutos sin avanzar, mar
 ## Aplicación a nuestro laboratorio
 
 ```bash
-bash scripts/lab.sh shell
+bash scripts/vm-lab.sh shell
 # Clases disponibles: traefik (Ingress y Gateway), standard (StorageClass)
-# Tres nodos: cka-10days-control-plane, cka-10days-worker, cka-10days-worker2
+# Tres VMs Ubuntu: controlplane, node01, node02
+# Base 1.34.11; práctica de upgrade a 1.35.8
 ```
 
-Para comandos Linux entra con `bash scripts/lab.sh node cp`, `w1` o `w2`; en el examen sigue el host SSH que indique la tarea. El `--kubelet-insecure-tls` usado por Metrics Server en kind **no es una recomendación de producción**.
+Para comandos Linux entra por SSH con `bash scripts/vm-lab.sh node cp`, `w1` o `w2`; el comando `shell` sigue siendo macOS. En el examen sigue el host SSH que indique la tarea. El `--kubelet-insecure-tls` usado por Metrics Server en este lab **no es una recomendación de producción**. kind se conserva como alternativa, no es el entorno principal de esta ruta.
 
 **Lecturas de apoyo:** [ruta de 10 días](../lab/README.md) · [ejercicios](../exercises/README.md) · [plantillas YAML](../TEMPLATES.md) · [playbook original](../troubleshooting/README.md).
 

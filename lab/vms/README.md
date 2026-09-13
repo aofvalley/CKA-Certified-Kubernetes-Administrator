@@ -2,6 +2,8 @@
 
 Este laboratorio sustituye a kind como entorno principal de práctica. Usa **tres VMs Ubuntu 24.04** con **Kubernetes 1.34.11**, instalado mediante paquetes `apt` y `kubeadm`. El objetivo es practicar tú la actualización a **1.35.8**, no ejecutarla automáticamente durante la instalación.
 
+**Si vas a empezar a practicar:** lee primero la [guía del estudiante](../GUIA-ESTUDIANTE.md). Incluye encendido diario, navegación por SSH, copia de respuestas al Mac y recuperación.
+
 La topología toma como referencia `lab-setup/mac-silicon` de `techiescamp/cka-certification-guide`. A diferencia de esa base, incluye instalación de Kubernetes, unión de workers, runtime, CNI y complementos. El otro directorio no se modifica.
 
 ## Primera instalación

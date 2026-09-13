@@ -2,6 +2,8 @@
 
 **Español:** [Chuleta práctica CKA 1.35](cka-cheatsheet-es.md), con verificaciones, precauciones y correcciones sobre etcd, NetworkPolicy y HPA.
 
+**Repaso breve:** [chuleta de memoria revisada para 1.34/1.35](cka-cheatsheet-memoria.md) · [guía del estudiante para el laboratorio de VMs](../lab/GUIA-ESTUDIANTE.md).
+
 Print this or keep it open during practice. Organized by what you'll actually need during the exam.
 
 **Jump to:** [Setup](#setup-first-60-seconds) | [Context](#context-every-question) | [Create Resources](#create-resources-fast) | [RBAC](#rbac) | [Deployments](#deployments) | [Node Ops](#node-operations) | [etcd](#etcd-backup--restore) | [kubeadm Upgrade](#kubeadm-upgrade-control-plane) | [Storage](#storage) | [Services](#services) | [NetworkPolicy](#networkpolicy) | [Troubleshooting](#troubleshooting-sequence) | [Static Pods](#static-pods) | [DNS](#dns) | [Quick Debug](#quick-debug) | [Time Savers](#time-savers)

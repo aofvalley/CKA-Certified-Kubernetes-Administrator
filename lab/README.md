@@ -8,6 +8,8 @@ Revisa otra vez la versión y las reglas en tu portal antes del examen: pueden c
 
 **Referencia rápida:** [chuleta CKA en español](../cheatsheet/cka-cheatsheet-es.md), con comandos, verificaciones y errores típicos. Úsala para practicar, no como material de consulta durante el examen.
 
+**Uso diario:** [guía del estudiante](GUIA-ESTUDIANTE.md), para activar el lab, distinguir Mac/VM, guardar respuestas y recuperar el entorno. Para repetición de comandos, usa la [chuleta de memoria revisada](../cheatsheet/cka-cheatsheet-memoria.md).
+
 ## Entorno principal: VMs Linux con kubeadm
 
 **La preparación se hace ahora en [tres VMs Ubuntu con VirtualBox y Vagrant](vms/README.md)**, no repartiendo los ejercicios entre Docker y otro entorno. Empiezan en **Kubernetes 1.34.11** para practicar [el upgrade real a 1.35.8](vms/upgrade.md). Incluyen SSH, systemd, apt, containerd, etcd y los complementos de redes, métricas y almacenamiento.

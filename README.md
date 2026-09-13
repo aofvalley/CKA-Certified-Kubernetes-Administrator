@@ -32,6 +32,8 @@ If this was useful, a star helps others find it.
 
 **¿Examen el 23 de septiembre?** Empieza con el [laboratorio principal de tres VMs Ubuntu](lab/vms/README.md): SSH, paquetes Linux y kubeadm **1.34 → 1.35**, además de NetworkPolicies, métricas, Ingress y Gateway API. Ejecuta `bash scripts/vm-lab.sh up` y entra con `bash scripts/vm-lab.sh node cp`. La [ruta intensiva de 10 días](lab/README.md) sigue siendo la guía de estudio; kind queda como alternativa ligera, no como entorno principal.
 
+**Para el día a día:** [guía del estudiante: activar, moverse, guardar y recuperar](lab/GUIA-ESTUDIANTE.md) · [chuleta de memoria revisada](cheatsheet/cka-cheatsheet-memoria.md).
+
 If you're time-pressured, here's the fast track:
 
 1. **Start a practice cluster** _(if needed)_ — if `kubectl` says connection refused or you don't have a local cluster yet: `bash scripts/init-cluster.sh`. This creates a kind-based k8s 1.35.1 cluster with one command. [Read more](#local-cluster-setup).
