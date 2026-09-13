@@ -1,6 +1,6 @@
 # Exercise 31 — Argo CD Setup (GitOps Deployment)
 
-> Related: [README — Deployments](../../README.md#domain-3--workloads--scheduling-15)
+> Related: [Chuleta — Helm y CRDs](../../cheatsheet/cka-cheatsheet.md#14-helm-kustomize-y-crds)
 
 Install Argo CD and configure it to deploy applications from a Git repository. Tests GitOps concepts and custom resource management.
 

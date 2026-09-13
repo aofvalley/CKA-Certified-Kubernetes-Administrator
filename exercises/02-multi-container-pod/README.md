@@ -1,6 +1,6 @@
 # Exercise 02 — Multi-Container Pod (Sidecar Logging)
 
-> Related: [Pod skeleton](../../skeletons/pod.yaml) | [README — Workloads & Scheduling](../../README.md#domain-3--workloads--scheduling-15)
+> Related: [Pod skeleton](../../skeletons/pod.yaml) | [Chuleta — creación imperativa](../../cheatsheet/cka-cheatsheet.md#4-creación-imperativa)
 
 Create a pod with a main container and a sidecar container that tails the main container's log file. This uses the v1.35 native sidecar container feature (`restartPolicy: Always` on an init container).
 

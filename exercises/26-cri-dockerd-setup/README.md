@@ -1,6 +1,6 @@
 # Exercise 26 — CRI-dockerd Installation and Configuration
 
-> Related: [README — Cluster Maintenance](../../README.md#domain-7--cluster-maintenance-11)
+> Related: [Prerrequisitos en las VMs](../../lab/vms/README.md#todos-los-ejercicios-con-sus-prerrequisitos)
 
 Install and configure cri-dockerd as a container runtime alternative to containerd. Essential for clusters using Docker as the container runtime.
 

@@ -1,6 +1,6 @@
 # Exercise 19 — Classic Ingress
 
-> Related: [Ingress skeleton](../../skeletons/ingress.yaml) | [Service skeleton](../../skeletons/service.yaml) | [README — Services and Networking](../../README.md#domain-3--services--networking-20)
+> Related: [Ingress skeleton](../../skeletons/ingress.yaml) | [Service skeleton](../../skeletons/service.yaml) | [Chuleta — Ingress](../../cheatsheet/cka-cheatsheet.md#10-storage-ingress-y-gateway-api)
 
 Configure Kubernetes Ingress resources for HTTP/HTTPS routing. CKA exam topics include classic Ingress alongside newer Gateway API. This exercise covers path-based routing, TLS termination, and IngressClass configuration.
 

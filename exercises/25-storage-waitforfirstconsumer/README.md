@@ -1,6 +1,6 @@
 # Exercise 25 — Storage with WaitForFirstConsumer Binding
 
-> Related: [Storage skeleton](../../skeletons/storageclass.yaml) | [README — Storage](../../README.md#domain-6--storage-10)
+> Related: [Storage skeleton](../../skeletons/storageclass.yaml) | [Chuleta — almacenamiento](../../cheatsheet/cka-cheatsheet.md#10-storage-ingress-y-gateway-api)
 
 Create a StorageClass with `WaitForFirstConsumer` binding mode, and understand why PVCs remain Pending until a pod actually uses them.
 

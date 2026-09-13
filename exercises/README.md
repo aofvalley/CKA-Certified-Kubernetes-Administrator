@@ -1,10 +1,27 @@
-# CKA Exercises
+# Banco de ejercicios CKA
 
-31 hands-on labs covering all seven CKA exam domains. Each one has a task list, hints (use them — they save time), verification commands, and a full solution behind a spoiler tag.
+Los 31 enunciados están aquí, agrupados en los cinco dominios CKA. **No hace falta recorrer este índice para decidir por dónde empezar:** usa la [rutina diaria](../README.md#rutina-diaria) y el [orden por día](#ejercicios-por-día). Hoy, empieza por [01 — Pod básico](01-pod-basics/README.md#tasks).
 
-I ordered these roughly by difficulty. If you're short on time, prioritize 09 (kubeadm), 11 (troubleshooting), 29 (etcd fix), and 28 (NetworkPolicy) — those cover the highest-weight domains and represent real exam patterns.
+En cada archivo, lee `Tasks`; consulta `Hints` solo si te atascas y abre `Solution` al corregir. La [chuleta única](../cheatsheet/cka-cheatsheet.md#4-creación-imperativa) sirve para elegir el generador o cambio rápido, no para pegar una solución completa.
 
-**New in v2.0:** Exercises 23-31 based on 2026 real exam feedback. These test advanced scenarios and common failure patterns.
+## Ejercicios por día
+
+| Día | Trabajo, en orden |
+| --- | --- |
+| 01 | [Pod](01-pod-basics/README.md#tasks) → [ConfigMap/Secret](03-configmap-secret/README.md#tasks) → [Deployment](06-deployment-rollout/README.md#tasks) |
+| 02 | Services/DNS → [NetworkPolicy](05-networkpolicy/README.md#tasks) → [políticas complejas](28-network-policy-complex/README.md#tasks) → [Ingress](19-ingress-classic/README.md#tasks) |
+| 03 | [RBAC](04-rbac/README.md#tasks) → [drain](08-node-drain-cordon/README.md#tasks) → [recursos](23-resource-requests-tuning/README.md#tasks) → [seguridad](20-pod-security-standards/README.md#tasks) → [prioridad](24-priorityclass-patch/README.md#tasks) |
+| 04 | [PV/PVC](12-storage-pv-pvc/README.md#tasks) → [binding](25-storage-waitforfirstconsumer/README.md#tasks) → [StatefulSet](07-statefulset/README.md#tasks) → [HPA](16-hpa/README.md#tasks-hpa) |
+| 05 | [Static Pod](10-static-pod/README.md#tasks) → [diagnóstico](11-troubleshoot-cluster/README.md#tasks) → [debug](17-kubectl-debug/README.md#tasks) → [etcd endpoint](29-troubleshoot-etcd-endpoint/README.md#tasks) |
+| 06 | [Backup/restore etcd](../cheatsheet/cka-cheatsheet.md#12-etcd-backup-y-restore) → [upgrade](../lab/vms/upgrade.md) → [TLS](30-tls-configuration-update/README.md#tasks) |
+| 07 | [Helm](13-helm-install-upgrade/README.md#tasks) → [Kustomize](14-kustomize-overlays/README.md#tasks) → [Gateway](15-gateway-api/README.md#tasks) → simulador 1, si lo tienes incluido |
+| 08 | [Instalación manual y CNI](../lab/vms/README.md#todos-los-ejercicios-con-sus-prerrequisitos) → [Mock 01](../mock-exams/MOCK-EXAM-01.md) |
+| 09 | Simulador 2 y repetir los tres fallos principales |
+| 10 | Repetir errores conocidos y descansar |
+
+Las prácticas de sistema afectan al cluster completo. Antes de restaurar etcd o reconstruir VMs, [guarda las respuestas fuera de ellas](../lab/vms/README.md#guardar-respuestas-en-el-mac). El mock necesita preparar sus prerrequisitos: el temporizador no despliega el escenario.
+
+## Todos los enunciados
 
 | # | Exercise | Domain | Difficulty | Time |
 |---|---|---|---|---|
@@ -48,13 +65,10 @@ I ordered these roughly by difficulty. If you're short on time, prioritize 09 (k
 | Workloads & Scheduling | 15% | 01, 02, 03, 06, 07, 10, 16, 21, 22, 23, 24 |
 | Storage | 10% | 12, 25 |
 
-## How to Use
+## Namespaces y respuestas
 
-1. Read the exercise description
-2. Try the tasks without looking at the solution
-3. Use the hints if you're stuck
-4. Check your work with the verification steps
-5. Compare against the solution
-6. Run cleanup before moving to the next exercise
+Para práctica diaria de un solo namespace, adapta el namespace del enunciado al del día, también en YAML, referencias RBAC y DNS, como explica [la rutina](../README.md#4-hacer-un-ejercicio-no-copiar-una-solución). Si pide varios namespaces, no los fusiones. En simulacros/examen conserva los nombres exactos exigidos.
 
-Every exercise assumes you have a running cluster (kind, minikube, or kubeadm) and the aliases from [`scripts/exam-setup.sh`](../scripts/exam-setup.sh).
+Guarda cada ejercicio en su subcarpeta dentro de `~/answers/cka-dia-NN/` en `controlplane`. **No ejecutes `Cleanup` al terminar el día** si quieres conservar los objetos: `stop` apaga sin borrar. Limpia deliberadamente solo los recursos del ejercicio cuando quieras repetirlo; los recursos globales no se aíslan por namespace.
+
+Las tareas de sistema necesitan preparar sus prerrequisitos. Nodos, clases y versiones del lab se consultan en [la referencia técnica de VMs](../lab/vms/README.md#todos-los-ejercicios-con-sus-prerrequisitos); no ejecutes comandos Linux en el Mac.

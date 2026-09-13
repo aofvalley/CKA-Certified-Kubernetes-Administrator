@@ -1,6 +1,6 @@
 # Exercise 20 — Pod Security Standards
 
-> Related: [Security Context skeleton](../../skeletons/securitycontext.yaml) | [README — Cluster Architecture](../../README.md#domain-4--cluster-architecture-installation--configuration-25) | **Updated May 2026**
+> Related: [Security Context skeleton](../../skeletons/securitycontext.yaml) | **Updated May 2026**
 
 Implement Pod Security Standards (PSS) at the namespace level to enforce security policies. This exercise covers enforcing restricted, baseline, and restricted security contexts on pods.
 

@@ -1,6 +1,6 @@
 # Exercise 01 — Pod Basics
 
-> Related: [Pod skeleton](../../skeletons/pod.yaml) | [README — Workloads & Scheduling](../../README.md#domain-3--workloads--scheduling-15)
+> Related: [Pod skeleton](../../skeletons/pod.yaml) | [Chuleta — creación imperativa](../../cheatsheet/cka-cheatsheet.md#4-creación-imperativa)
 
 Create a pod with specific resource requests, labels, and verify it's running.
 
@@ -40,6 +40,10 @@ Create a pod with specific resource requests, labels, and verify it's running.
 # Pod should be Running
 k get pod web -n exercise-01
 
+# Ready, image and resource requests/limits must match Tasks
+k wait --for=condition=Ready pod/web -n exercise-01 --timeout=120s
+k describe pod web -n exercise-01
+
 # Should show app=web,version=v1
 k get pod web -n exercise-01 --show-labels
 
@@ -61,7 +65,7 @@ k delete ns exercise-01
 k create ns exercise-01
 
 # Generate pod YAML
-k run web -n exercise-01 --image=nginx:1.28 --labels=app=web,tier=frontend $do > pod.yaml
+k run web -n exercise-01 --image=nginx:1.27 --labels=app=web,tier=frontend $do > pod.yaml
 ```
 
 Edit `pod.yaml` to add resources:

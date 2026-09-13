@@ -1,6 +1,6 @@
 # Exercise 08 — Node Drain and Cordon
 
-> Related: [README — Cluster Architecture](../../README.md#domain-4--cluster-architecture-installation--configuration-25)
+> Related: [Chuleta — nodos y drain](../../cheatsheet/cka-cheatsheet.md#8-nodos-y-scheduling)
 
 Drain a worker node for maintenance, then bring it back. This tests your understanding of pod eviction, DaemonSets, and scheduling.
 

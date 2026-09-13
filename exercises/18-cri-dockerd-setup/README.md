@@ -1,6 +1,6 @@
 # Exercise 18 — CRI-dockerd Installation & Configuration
 
-> Related: [Cluster Architecture](../../README.md#domain-4--cluster-architecture-installation--configuration-25) | Container runtime setup for kubeadm clusters
+> Related: [Prerrequisitos en las VMs](../../lab/vms/README.md#todos-los-ejercicios-con-sus-prerrequisitos) | Container runtime setup for kubeadm clusters
 
 Install and configure cri-dockerd as a container runtime for a Kubernetes node. This is common when upgrading clusters that need Docker support or when preparing a mixed-runtime cluster.
 

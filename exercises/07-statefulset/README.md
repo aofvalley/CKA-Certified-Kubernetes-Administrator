@@ -1,6 +1,6 @@
 # Exercise 07 — StatefulSet Deployment
 
-> Related: [README — Workloads and Scheduling](../../README.md#domain-1--workloads-and-scheduling-15)
+> Related: [Chuleta — almacenamiento](../../cheatsheet/cka-cheatsheet.md#10-storage-ingress-y-gateway-api)
 
 Deploy a stateful application using StatefulSet. This exercise teaches ordered pod initialization, persistent storage, and stable network identities—critical for databases and distributed systems on the CKA.
 

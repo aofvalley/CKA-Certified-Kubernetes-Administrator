@@ -1,6 +1,6 @@
 # Exercise 28 — Complex NetworkPolicy (Multi-Namespace, Traffic Control)
 
-> Related: [NetworkPolicy skeleton](../../skeletons/networkpolicy.yaml) | [README — Networking](../../README.md#domain-5--services--networking-13) | **Updated May 2026**
+> Related: [NetworkPolicy skeleton](../../skeletons/networkpolicy.yaml) | [Chuleta — NetworkPolicy](../../cheatsheet/cka-cheatsheet.md#9-red-dns-y-networkpolicy) | **Updated May 2026**
 
 Create multi-namespace NetworkPolicies with ingress/egress rules with careful label matching and debugging. Understand that NetworkPolicy enforcement depends on the CNI (Container Network Interface) plugin your cluster uses — not all CNIs enforce all policy rules equally.
 

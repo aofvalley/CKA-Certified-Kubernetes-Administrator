@@ -1,6 +1,6 @@
 # Exercise 12 — Storage: PV, PVC, and StorageClass
 
-> Related: [PV skeleton](../../skeletons/pv.yaml) | [PVC skeleton](../../skeletons/pvc.yaml) | [StorageClass skeleton](../../skeletons/storageclass.yaml) | [README — Storage](../../README.md#domain-1--storage-10)
+> Related: [PV skeleton](../../skeletons/pv.yaml) | [PVC skeleton](../../skeletons/pvc.yaml) | [StorageClass skeleton](../../skeletons/storageclass.yaml) | [Chuleta — almacenamiento](../../cheatsheet/cka-cheatsheet.md#10-storage-ingress-y-gateway-api)
 
 Create PersistentVolumes, PersistentVolumeClaims, and mount them into pods. This covers static provisioning and StorageClass basics. You'll verify not just that the PVC binds, but that a consuming Pod can successfully schedule and use the storage.
 

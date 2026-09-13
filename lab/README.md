@@ -1,29 +1,8 @@
-# Laboratorio CKA y preparación intensiva: 13–22 de septiembre de 2026
+# Laboratorio kind: alternativa opcional
 
-**Examen: 23 de septiembre.** Esta ruta presupone unas **3,5–4 horas diarias** y conocimientos básicos de Linux. Diez días pueden servir para consolidar conocimientos, pero no garantizan aprobar desde cero: el diagnóstico del primer día marca el ritmo.
+**Para estudiar con las VMs, vuelve a [la rutina única del README](../README.md#rutina-diaria).** El orden de trabajo está en [ejercicios por día](../exercises/README.md#ejercicios-por-día) y los comandos en [la chuleta unificada](../cheatsheet/cka-cheatsheet.md).
 
-La [ficha oficial CKA](https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/) y las [instrucciones oficiales](https://docs.linuxfoundation.org/tc-docs/certification/tips-cka-and-ckad) consultadas el 13/09/2026 indican Kubernetes **1.35**, **dos horas** y 15–20 tareas. La [FAQ oficial](https://docs.linuxfoundation.org/tc-docs/certification/faq-cka-ckad-cks) exige **66 %** para aprobar. Los pesos son por dominio, no por ejercicio; no interpretes «10 de 15 preguntas» del repositorio como equivalencia oficial.
-
-Revisa otra vez la versión y las reglas en tu portal antes del examen: pueden cambiar. La documentación oficial prevalece sobre las notas y soluciones del repositorio.
-
-**Referencia rápida:** [chuleta CKA en español](../cheatsheet/cka-cheatsheet-es.md), con comandos, verificaciones y errores típicos. Úsala para practicar, no como material de consulta durante el examen.
-
-**Plan día a día con checklist:** [PLAN-ESTUDIO.md](PLAN-ESTUDIO.md).
-
-**Uso diario:** [guía del estudiante](GUIA-ESTUDIANTE.md), para activar el lab, distinguir Mac/VM, guardar respuestas y recuperar el entorno. Para repetición de comandos, usa la [chuleta de memoria revisada](../cheatsheet/cka-cheatsheet-memoria.md).
-
-## Entorno principal: VMs Linux con kubeadm
-
-**La preparación se hace ahora en [tres VMs Ubuntu con VirtualBox y Vagrant](vms/README.md)**, no repartiendo los ejercicios entre Docker y otro entorno. Empiezan en **Kubernetes 1.34.11** para practicar [el upgrade real a 1.35.8](vms/upgrade.md). Incluyen SSH, systemd, apt, containerd, etcd y los complementos de redes, métricas y almacenamiento.
-
-```bash
-bash scripts/vm-lab.sh up
-bash scripts/vm-lab.sh check
-bash scripts/vm-lab.sh node cp   # SSH a Ubuntu; sudo -i para administrar
-bash scripts/vm-lab.sh shell     # Bash en macOS para manifiestos y kubectl
-```
-
-La ruta de diez días de abajo usa este entorno. Para operaciones habituales sustituye `scripts/lab.sh` por `scripts/vm-lab.sh`. Las prácticas destructivas y la instalación de CNI desde cero requieren preparar o recrear **las mismas VMs**; los pasos están en su guía. Tu laboratorio kind se conserva como alternativa.
+Esta página conserva exclusivamente la referencia del entorno Docker/kind y la validación técnica del laboratorio. **No necesitas instalar ni arrancar kind para seguir la rutina principal.** La instalación y recuperación de las VMs se documentan en [vms/README.md](vms/README.md).
 
 ## Alternativa Docker: entrar y trabajar con kind
 
@@ -139,62 +118,6 @@ Esta tabla describe **solo kind**, no el laboratorio principal de VMs. No es la 
 En la ruta principal las prácticas de sistema se realizan en las [VMs locales](vms/README.md). Conserva el **simulador incluido en tu inscripción**, si tu modalidad lo incluye, para practicar bajo tiempo y con el flujo del examen. La ficha oficial describe dos intentos, de 36 horas cada uno desde su activación. Comprueba tus derechos y no actives una sesión hasta disponer de tiempo para aprovecharla.
 
 kind **no equivale al examen completo**: faltan instalación de máquinas desde cero, gestión real de paquetes, un control plane HA y el flujo SSH del escritorio remoto. Tampoco es almacenamiento CSI de producción: `standard` usa volúmenes locales. Debes comprender CNI/CSI/CRI, HA, `kubeadm init/join/upgrade`, copias/restauración de etcd y diagnóstico Linux, aunque algunas prácticas se hagan fuera.
-
-## Ruta de diez días
-
-Pesos oficiales: **troubleshooting 30 %, arquitectura/instalación/configuración 25 %, redes 20 %, workloads/scheduling 15 %, almacenamiento 10 %**. Dedica el 70–80 % del tiempo al teclado, no a leer todo el README.
-
-| Día | Fecha | Trabajo principal | Evidencia de avance |
-| --- | --- | --- | --- |
-| 1 | 13 sep | Diagnóstico de abajo; ejercicios 01, 03 y 06. Pods, YAML, namespaces, ConfigMap/Secret y rollout | Crear/verificar/reparar una aplicación sin copiar soluciones |
-| 2 | 14 sep | 05 y 28; Services, EndpointSlices, DNS/CoreDNS y NetworkPolicy. Añadir avería de selector/puerto | Demostrar conexiones permitidas y denegadas; localizar el fallo con evidencia |
-| 3 | 15 sep | 04, 08, 20, 22–24; RBAC, ServiceAccounts, drain/cordon, requests/limits, taints y affinity | Verificar permisos con `auth can-i` y recuperar un Pod Pending |
-| 4 | 16 sep | 07, 12, 25 y 16; PV/PVC, reclaim policy, WaitForFirstConsumer, StatefulSet y HPA | Explicar por qué un PVC espera y demostrar que conserva datos al recrear un Pod |
-| 5 | 17 sep | 10, 11, 17 y 29; kubelet, runtime, logs, static Pods, API server y etcd | Resolver tres fallos en menos de 15 min cada uno; guardar/restaurar configuración |
-| 6 | 18 sep | [Upgrade local 1.34 → 1.35](vms/upgrade.md), CRI/CNI/CSI y HA; **simulador 1: 120 min**, después revisión | Ejecutar tareas Linux en las VMs y clasificar los fallos del simulador |
-| 7 | 19 sep | 13, 14, 15 y 19; Helm, Kustomize, Ingress y Gateway API. Inspeccionar CRDs/operador Calico | Instalar/actualizar un chart y servir HTTP por Ingress y HTTPRoute; corregir simulador 1 |
-| 8 | 20 sep | **Simulador 2: 120 min**, sin ayuda; 90 min de corrección y repetición | Priorizar por puntos/tiempo, conservar 15–20 min para verificación |
-| 9 | 21 sep | [Mock 01](../mock-exams/MOCK-EXAM-01.md) o [Mock 02](../mock-exams/MOCK-EXAM-02.md), el no practicado, 120 min; reforzar los tres puntos débiles | Objetivo orientativo ≥80 % de los puntos practicables, sin soluciones y dentro de tiempo |
-| 10 | 22 sep | Repaso ligero de errores, documentación, comandos y estrategia; revisión PSI, documento de identidad y hora/zona del examen | Dos o tres tareas conocidas sin atascarte; descansar, no abrir temas grandes |
-
-En los mocks del repositorio prepara los prerrequisitos que pide cada enunciado: el temporizador **no despliega averías ni configura máquinas**. Las tareas de sistema se hacen por SSH en las VMs; prepara su estado inicial y no marques como aprobada una tarea que no hayas ejecutado. El runner solo presenta un extracto inicial: mantén abierto el archivo completo de preguntas. Usa las soluciones únicamente al corregir; no confundas una puntuación parcial local con una predicción oficial.
-
-Bloque diario normal: **20 min** de repetición sin apuntes, **100 min** de ejercicios, **45 min** de troubleshooting, **35 min** de tareas cronometradas y **20 min** para explicar errores y repetirlos. En días de simulador sustituye ese bloque por las dos horas de examen y la corrección.
-
-Si dispones de menos tiempo, conserva troubleshooting + RBAC/kubeadm + redes, y reduce Argo CD, ejercicios duplicados y lectura larga. Si al final del día 3 sigues necesitando soluciones para tareas básicas, el calendario es de alto riesgo: revisa las opciones y plazos de reprogramación de tu inscripción.
-
-## Primera sesión: diagnóstico de 45 minutos
-
-Entra con `bash scripts/vm-lab.sh shell`, o por SSH con `bash scripts/vm-lab.sh node cp` para practicar desde Ubuntu. Lee los enunciados de [01](../exercises/01-pod-basics/README.md), [03](../exercises/03-configmap-secret/README.md), [06](../exercises/06-deployment-rollout/README.md) y [04](../exercises/04-rbac/README.md), sin abrir sus soluciones.
-
-| Minutos | Tarea | Criterio |
-| --- | --- | --- |
-| 0–10 | Ejercicio 01 | Pod Running/Ready, salida y descripción verificadas |
-| 10–20 | Ejercicio 03 | Aplicación recibe los valores del ConfigMap y Secret |
-| 20–30 | Ejercicio 06 | Actualización y rollback con versión y réplicas verificadas |
-| 30–45 | Ejercicio 04 | Identidad puede hacer lo solicitado y no lo que queda fuera |
-
-Si te atascas más de ocho minutos, registra el síntoma y pasa a la siguiente tarea. Después corrige y repite desde cero. Guarda los manifiestos en `.lab/answers/day-01/` y usa este formato para trabajar conmigo durante la preparación:
-
-```text
-Día / ejercicio:
-Tiempo:
-Resultado esperado:
-Resultado observado:
-Comandos de verificación y salida relevante (sin secretos):
-Pista que necesité:
-Causa raíz y cómo la comprobé:
-```
-
-Considera dominada una tarea tras **dos resoluciones correctas sin ayuda**, en días distintos. En nuestras sesiones puedo dar primero una pista, después ayudarte a diagnosticar y finalmente revisar la solución. El objetivo no es memorizar YAML: es llegar al estado pedido y demostrarlo.
-
-## Reglas para simulacros y examen
-
-Usa solo los [recursos oficialmente permitidos](https://docs.linuxfoundation.org/tc-docs/certification/certification-resources-allowed): documentación/blog Kubernetes, Helm, Gateway API para CKA y las referencias que proporcione cada tarea. Este repositorio, Copilot y otros asistentes son herramientas de **preparación**, no ayuda durante el examen.
-
-Practica el flujo del entorno actual: leer el host asignado, entrar por SSH, comprobar contexto/namespace, resolver, verificar y salir antes de la siguiente tarea. No des por hecho que basta con cambiar el contexto. En el escritorio Linux, practica copiar/pegar con Ctrl+Shift+C/V y el manejo de Vim.
-
-Objetivo de estrategia: primera pasada de tareas claras, segunda para las atascadas y 15–20 minutos finales para verificar. La referencia es el requisito observable de la tarea, no que `apply` haya terminado sin errores. Haz ya la [comprobación PSI](https://syscheck.bridge.psiexams.com/) y revisa identificación, monitor único, webcam y permisos del navegador; no dejes esa parte para el día 23.
 
 ## Validar cambios al laboratorio
 

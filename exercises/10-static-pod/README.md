@@ -1,6 +1,6 @@
 # Exercise 10 — Static Pod
 
-> Related: [Pod skeleton](../../skeletons/pod.yaml) | [README — Workloads & Scheduling](../../README.md#domain-3--workloads--scheduling-15)
+> Related: [Pod skeleton](../../skeletons/pod.yaml) | [Chuleta — Linux y static Pods](../../cheatsheet/cka-cheatsheet.md#13-linux-y-rutas-de-kubeadm)
 
 Create a static pod by placing a manifest in the kubelet's static pod directory. Static pods are managed directly by the kubelet, not the API server.
 

@@ -2,7 +2,7 @@
 
 > **Medium** | ~15 min | Domain: Workloads & Scheduling (15%)
 >
-> Related: [HPA skeleton](../../skeletons/hpa.yaml) | [README — Workloads & Scheduling](../../README.md#domain-3--workloads--scheduling-15)
+> Related: [HPA skeleton](../../skeletons/hpa.yaml) | [Chuleta — creación imperativa y HPA](../../cheatsheet/cka-cheatsheet.md#4-creación-imperativa)
 
 Configure a Horizontal Pod Autoscaler to scale a deployment based on CPU usage. Also understand Vertical Pod Autoscaler for resource optimization. This requires the metrics-server to be installed in the cluster.
 

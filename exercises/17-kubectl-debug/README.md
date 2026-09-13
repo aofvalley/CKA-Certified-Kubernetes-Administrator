@@ -2,7 +2,7 @@
 
 > **Medium** | ~15 min | Domain: Troubleshooting (30%) | **Updated May 2026**
 >
-> Related: [README — Troubleshooting](../../README.md#domain-2--troubleshooting-30)
+> Related: [Chuleta — troubleshooting y debug](../../cheatsheet/cka-cheatsheet.md#6-troubleshooting-según-el-síntoma)
 
 Use `kubectl debug` to troubleshoot running pods and access node-level resources. This is GA in v1.35 and directly relevant to CKA troubleshooting tasks.
 

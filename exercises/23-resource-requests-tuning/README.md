@@ -1,6 +1,6 @@
 # Exercise 23 — Resource Requests Tuning (Pods Won't Schedule)
 
-> Related: [Deployment skeleton](../../skeletons/deployment.yaml) | [README — Scheduling](../../README.md#domain-3--workloads--scheduling-15)
+> Related: [Deployment skeleton](../../skeletons/deployment.yaml) | [Chuleta — nodos y recursos](../../cheatsheet/cka-cheatsheet.md#8-nodos-y-scheduling)
 
 Debug and fix a Deployment where pods won't schedule due to insufficient resource requests. Learn to calculate proper requests based on node capacity.
 

@@ -1,6 +1,6 @@
 # Exercise 09 — kubeadm Cluster Upgrade
 
-> Related: [README — Cluster Architecture](../../README.md#domain-4--cluster-architecture-installation--configuration-25)
+> Related: [Chuleta — upgrade kubeadm](../../cheatsheet/cka-cheatsheet.md#11-upgrade-con-kubeadm) | [Upgrade en las VMs](../../lab/vms/upgrade.md)
 
 Upgrade a cluster from one minor version to the next using kubeadm. The CKA frequently asks this — you need to know the exact sequence.
 

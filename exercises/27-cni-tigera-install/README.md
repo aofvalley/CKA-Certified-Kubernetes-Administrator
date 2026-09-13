@@ -1,6 +1,6 @@
 # Exercise 27 — CNI Installation (Calico/Tigera Operator)
 
-> Related: [README — Cluster Maintenance](../../README.md#domain-7--cluster-maintenance-11)
+> Related: [Instalación manual y CNI en las VMs](../../lab/vms/README.md#todos-los-ejercicios-con-sus-prerrequisitos)
 
 Install a full CNI plugin using the Tigera Operator for Calico, including networking and security policies. Essential for multi-node clusters.
 

@@ -11,4 +11,4 @@ else
   PS1='[CKA kind] \w \$ '
 fi
 cd "$CKA_LAB_ROOT" || return
-printf '\nLaboratorio aislado. Salir: exit. Guia: lab/README.md\n'
+printf '\nLaboratorio aislado. Salir: exit. Rutina diaria: README.md\n'

@@ -1,6 +1,6 @@
 # Exercise 29 — Troubleshoot Broken Cluster (Incorrect etcd Endpoint)
 
-> Related: [README — Cluster Maintenance](../../README.md#domain-7--cluster-maintenance-11) | **Updated May 2026**
+> Related: [Chuleta — control plane y diagnóstico Linux](../../cheatsheet/cka-cheatsheet.md#13-linux-y-rutas-de-kubeadm) | **Updated May 2026**
 
 Debug and fix a broken control plane where API server points to wrong etcd endpoint. Tests troubleshooting methodology and static pod modification.
 

@@ -1,6 +1,6 @@
 # Exercise 04 — RBAC
 
-> Related: [RBAC skeleton](../../skeletons/rbac.yaml) | [ClusterRole skeleton](../../skeletons/clusterrole.yaml) | [README — Cluster Architecture](../../README.md#domain-4--cluster-architecture-installation--configuration-25)
+> Related: [RBAC skeleton](../../skeletons/rbac.yaml) | [ClusterRole skeleton](../../skeletons/clusterrole.yaml) | [Chuleta — RBAC](../../cheatsheet/cka-cheatsheet.md#7-rbac)
 
 Set up Role-Based Access Control with Roles, ClusterRoles, and bindings. This is heavily tested on the CKA.
 

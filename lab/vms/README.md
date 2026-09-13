@@ -1,8 +1,8 @@
-# Laboratorio principal CKA: Ubuntu, SSH y kubeadm
+# Referencia técnica de las VMs: instalación y recuperación
 
 Este laboratorio sustituye a kind como entorno principal de práctica. Usa **tres VMs Ubuntu 24.04** con **Kubernetes 1.34.11**, instalado mediante paquetes `apt` y `kubeadm`. El objetivo es practicar tú la actualización a **1.35.8**, no ejecutarla automáticamente durante la instalación.
 
-**Si vas a empezar a practicar:** lee primero la [guía del estudiante](../GUIA-ESTUDIANTE.md). Incluye encendido diario, navegación por SSH, copia de respuestas al Mac y recuperación.
+**Para practicar cada día, usa solo [la rutina del README](../../README.md#rutina-diaria).** Esta página es de consulta: instalación, otros nodos, Helm desde el Mac, copia de respuestas y recuperación. No es una segunda ruta de estudio.
 
 La topología toma como referencia `lab-setup/mac-silicon` de `techiescamp/cka-certification-guide`. A diferencia de esa base, incluye instalación de Kubernetes, unión de workers, runtime, CNI y complementos. El otro directorio no se modifica.
 
@@ -33,6 +33,8 @@ Los kubeconfigs, claves SSH, estado de Vagrant y herramientas locales están baj
 
 ## Entrar: Linux de verdad
 
+El trabajo habitual como `vagrant` está en la rutina principal. Este ejemplo es para **administración del sistema**, cuando el ejercicio la requiera; `sudo -i` no es necesario para crear Pods o Deployments:
+
 ```bash
 bash scripts/vm-lab.sh node cp
 sudo -i
@@ -52,19 +54,20 @@ sudo -i
 
 El control plane tiene kubeconfig administrativo para `vagrant` y `root`; los workers **no** reciben credenciales administrativas. Ejecuta `kubectl drain` y `uncordon` desde el control plane o desde el shell del Mac, no desde un worker sin kubeconfig.
 
-También puedes administrar recursos desde macOS:
+**Solo cuando lo necesites, por ejemplo para Helm**, también puedes administrar recursos desde macOS. Si preparaste el día 07 en Ubuntu, selecciona el mismo namespace en este kubeconfig independiente:
 
 ```bash
 bash scripts/vm-lab.sh shell
-k get nodes
-mkdir -p .lab/answers/day-01
-exit
-
-bash scripts/vm-lab.sh kubectl get pods -A
-bash scripts/vm-lab.sh helm list -A
+NS=cka-dia-07
+kn "$NS"
+mkdir -p ".lab/answers/$NS"
+cd ".lab/answers/$NS"
+helm list -n "$NS"
 ```
 
-**`shell` sigue siendo macOS**, con aliases, Vim y kubeconfig aislados. **`node` entra por SSH en Ubuntu**. `apt`, `systemctl`, `journalctl`, `kubeadm` y los cambios de `/etc/kubernetes` se ejecutan en Ubuntu. Dentro de SSH, guarda tus respuestas en la VM o transfiérelas al Mac antes de destruirla: no hay carpeta compartida automática.
+**`shell` sigue siendo macOS**, con aliases, Vim, Helm y kubeconfig aislados. **`node` entra por SSH en Ubuntu**. `apt`, `systemctl`, `journalctl`, `kubeadm` y los cambios de `/etc/kubernetes` se ejecutan en Ubuntu. Helm no se preinstala en las VMs. Mac, `vagrant` y `root` no comparten el namespace seleccionado ni los archivos de trabajo.
+
+Dentro de SSH, guarda tus respuestas en la VM o transfiérelas al Mac antes de destruirla: no hay carpeta compartida automática. `exit` sale del shell; no apaga las VMs. Si hiciste `sudo -i`, primero vuelve a `vagrant` con `exit`, después sal de SSH.
 
 ## Complementos
 
@@ -121,6 +124,40 @@ Si una descarga o instalación se interrumpe **después del borrado**, corrige l
 Se conservan las respuestas del Mac en `.lab/answers/`, el cliente kubectl local y el laboratorio Docker. `down --yes` sigue disponible si solo quieres borrar las VMs sin recrearlas. No uses `VBoxManage unregistervm` indiscriminadamente, `vagrant global-status` para borrar otras VMs, ni limpieza global de Docker.
 
 `check` verifica SSH, servicios, swap desactivado, paquetes y CRI; después prueba tres nodos Ready, DNS y HTTP entre workers, un PVC con datos, NetworkPolicy permitida/denegada, Ingress, Gateway/HTTPRoute y métricas/HPA. Crea y elimina únicamente un namespace temporal propio; necesita ambos workers sin cordon.
+
+## Guardar respuestas en el Mac
+
+**No es obligatorio para apagar con `stop`; sí antes de destruir/reconstruir las VMs si quieres conservar los archivos.** La rutina diaria guarda como `vagrant` en `/home/vagrant/answers/cka-dia-01/`. Esta copia recoge los manifiestos/archivos, no los datos de PVC ni el estado completo del cluster.
+
+Desde otra terminal del **Mac**, en la raíz del repositorio, con `controlplane` encendida:
+
+```bash
+NS=cka-dia-01
+umask 077
+VAGRANT_CWD="$PWD/lab/vms" VAGRANT_DOTFILE_PATH="$PWD/.lab/vms/vagrant" \
+  vagrant ssh-config > .lab/vms/ssh-config
+mkdir -p ".lab/answers/$NS"
+scp -r -F .lab/vms/ssh-config \
+  "controlplane:/home/vagrant/answers/$NS/." ".lab/answers/$NS/"
+ls -la ".lab/answers/$NS"
+```
+
+Comprueba que puedes abrir los archivos copiados antes de un reset. Para los demás días cambia `NS`. Regenera `ssh-config` después de recrear las VMs; esta consulta selecciona explícitamente su estado privado, no crea máquinas.
+
+`.lab/answers/` en el Mac sobrevive al reset y está excluido de Git. No copies tokens, certificados, kubeconfigs ni snapshots sensibles como si fueran respuestas publicables. Esto tampoco protege frente a perder el Mac. `kubectl cp` copia archivos de Pods, no de las VMs.
+
+## Diagnóstico de acceso
+
+| Síntoma | Primera comprobación |
+| --- | --- |
+| `No such file or directory` al ejecutar el wrapper | Volver al Mac y a la raíz del repositorio; no ejecutarlo dentro de Ubuntu |
+| `No hay VMs registradas` | Primera instalación en este checkout: `doctor` y `up` |
+| API sin conexión tras encender | Esperar y consultar `status`; no usar `reset` como encendido |
+| `k` no existe | Usar `kubectl` o preparar Bash con el calentamiento de la chuleta |
+| `systemctl`/`apt` no existen | Estás en el Mac; entrar con `node` |
+| kubectl falla en un worker | No tiene kubeconfig administrativo; usar el control plane para las operaciones de cluster |
+| Cambiar namespace en el Mac no lo cambia en Ubuntu | Son kubeconfigs distintos; seleccionar en cada host o usar `-n` |
+| `check` falla tras un ejercicio | Revisar cordon, CNI, métricas y rutas; no asumir que hay que reconstruir |
 
 ## Todos los ejercicios, con sus prerrequisitos
 

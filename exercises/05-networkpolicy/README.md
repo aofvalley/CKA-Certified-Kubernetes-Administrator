@@ -1,6 +1,6 @@
 # Exercise 05 — NetworkPolicy
 
-> Related: [NetworkPolicy skeleton](../../skeletons/networkpolicy.yaml) | [README — Services & Networking](../../README.md#domain-5--services--networking-20)
+> Related: [NetworkPolicy skeleton](../../skeletons/networkpolicy.yaml) | [Chuleta — red y NetworkPolicy](../../cheatsheet/cka-cheatsheet.md#9-red-dns-y-networkpolicy)
 
 Create NetworkPolicies to control pod-to-pod traffic. Watch out for the DNS gotcha.
 

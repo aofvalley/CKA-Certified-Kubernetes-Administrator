@@ -1,6 +1,6 @@
 # Exercise 06 — Deployment Rolling Update and Rollback
 
-> Related: [Deployment skeleton](../../skeletons/deployment.yaml) | [README — Workloads & Scheduling](../../README.md#domain-3--workloads--scheduling-15)
+> Related: [Deployment skeleton](../../skeletons/deployment.yaml) | [Chuleta — cambios y rollouts](../../cheatsheet/cka-cheatsheet.md#5-modificar-sin-rehacer-el-manifiesto)
 
 Create a Deployment, perform a rolling update, check rollout history, and rollback.
 

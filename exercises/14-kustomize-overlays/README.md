@@ -2,7 +2,7 @@
 
 > **Medium** | ~15 min | Domain: Cluster Architecture (25%)
 >
-> Related: [README — Cluster Architecture](../../README.md#domain-4--cluster-architecture-installation--configuration-25)
+> Related: [Chuleta — Kustomize](../../cheatsheet/cka-cheatsheet.md#14-helm-kustomize-y-crds)
 
 Build a base deployment and apply an overlay that changes the namespace and replica count. Kustomize is built into kubectl and is now part of the CKA skill set.
 

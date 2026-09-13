@@ -2,7 +2,7 @@
 
 > **Medium** | ~20 min | Domain: Services & Networking (20%)
 >
-> Related: [Gateway API skeleton](../../skeletons/gateway-api.yaml) | [README — Services & Networking](../../README.md#domain-5--services--networking-20)
+> Related: [Gateway API skeleton](../../skeletons/gateway-api.yaml) | [Chuleta — Gateway API](../../cheatsheet/cka-cheatsheet.md#10-storage-ingress-y-gateway-api)
 
 Gateway API is GA in v1.35 and replaces classic Ingress for modern traffic management. Set up a Gateway and route HTTP traffic to a backend service.
 

@@ -1,6 +1,6 @@
 # Exercise 11 — Troubleshoot Cluster Components
 
-> Related: [README — Troubleshooting](../../README.md#domain-2--troubleshooting-30) | **Updated May 2026**
+> Related: [Chuleta — troubleshooting](../../cheatsheet/cka-cheatsheet.md#6-troubleshooting-según-el-síntoma) | **Updated May 2026**
 
 Fix a broken cluster. This exercise simulates common failures you'll see on the CKA: kubelet down, kube-proxy misconfigured, CoreDNS not resolving.
 

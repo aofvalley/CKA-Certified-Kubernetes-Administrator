@@ -1,6 +1,6 @@
 # Exercise 03 — ConfigMap and Secret
 
-> Related: [ConfigMap/Secret skeleton](../../skeletons/configmap-secret.yaml) | [README — Workloads & Scheduling](../../README.md#domain-3--workloads--scheduling-15)
+> Related: [ConfigMap/Secret skeleton](../../skeletons/configmap-secret.yaml) | [Chuleta — creación imperativa](../../cheatsheet/cka-cheatsheet.md#4-creación-imperativa)
 
 Create ConfigMaps and Secrets, then inject them into a pod as environment variables and mounted files.
 

@@ -1,6 +1,6 @@
 # Exercise 24 — PriorityClass and Patch Operations
 
-> Related: [PriorityClass skeleton](../../skeletons/priorityclass.yaml) | [README — Scheduling](../../README.md#domain-3--workloads--scheduling-15)
+> Related: [Chuleta — patch](../../cheatsheet/cka-cheatsheet.md#5-modificar-sin-rehacer-el-manifiesto)
 
 Create a high-priority pod that gets scheduled before lower-priority pods. Practice using `kubectl patch` to modify existing resources without editing manifests.
 

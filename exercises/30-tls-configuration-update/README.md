@@ -1,6 +1,6 @@
 # Exercise 30 — TLS Configuration Update (Cipher Support)
 
-> Related: [README — Security](../../README.md#domain-4--security-12) | **Updated May 2026**
+> Related: [Chuleta — certificados y rutas Linux](../../cheatsheet/cka-cheatsheet.md#13-linux-y-rutas-de-kubeadm) | **Updated May 2026**
 
 Update TLS configuration to support additional protocol versions for backward compatibility. Tests ConfigMap modification and service restart.
 
