@@ -8,6 +8,8 @@ Revisa otra vez la versión y las reglas en tu portal antes del examen: pueden c
 
 **Referencia rápida:** [chuleta CKA en español](../cheatsheet/cka-cheatsheet-es.md), con comandos, verificaciones y errores típicos. Úsala para practicar, no como material de consulta durante el examen.
 
+**Plan día a día con checklist:** [PLAN-ESTUDIO.md](PLAN-ESTUDIO.md).
+
 **Uso diario:** [guía del estudiante](GUIA-ESTUDIANTE.md), para activar el lab, distinguir Mac/VM, guardar respuestas y recuperar el entorno. Para repetición de comandos, usa la [chuleta de memoria revisada](../cheatsheet/cka-cheatsheet-memoria.md).
 
 ## Entorno principal: VMs Linux con kubeadm
