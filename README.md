@@ -30,7 +30,7 @@ If this was useful, a star helps others find it.
 
 ## Quick Start (< 4 Weeks to Exam)
 
-**¿Examen el 23 de septiembre?** El [laboratorio intensivo y ruta de 10 días en español](lab/README.md) añade tres nodos, NetworkPolicies reales, métricas, Ingress y Gateway API, sin cambiar tu kubeconfig habitual. Empieza con `bash scripts/lab.sh up` y entra con `bash scripts/lab.sh shell`.
+**¿Examen el 23 de septiembre?** Empieza con el [laboratorio principal de tres VMs Ubuntu](lab/vms/README.md): SSH, paquetes Linux y kubeadm **1.34 → 1.35**, además de NetworkPolicies, métricas, Ingress y Gateway API. Ejecuta `bash scripts/vm-lab.sh up` y entra con `bash scripts/vm-lab.sh node cp`. La [ruta intensiva de 10 días](lab/README.md) sigue siendo la guía de estudio; kind queda como alternativa ligera, no como entorno principal.
 
 If you're time-pressured, here's the fast track:
 

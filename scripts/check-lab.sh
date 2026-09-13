@@ -3,7 +3,12 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 NS="cka-check-$(date +%s)-$$"
-k() { bash "$ROOT/scripts/lab.sh" kubectl "$@"; }
+case "${CKA_LAB_BACKEND:-kind}" in
+  kind) LAB_CLI="$ROOT/scripts/lab.sh"; WORKER1=cka-10days-worker; WORKER2=cka-10days-worker2 ;;
+  vms) LAB_CLI="$ROOT/scripts/vm-lab.sh"; WORKER1=node01; WORKER2=node02 ;;
+  *) printf 'ERROR: backend desconocido.\n' >&2; exit 1 ;;
+esac
+k() { bash "$LAB_CLI" kubectl "$@"; }
 kn() { k -n "$NS" "$@"; }
 fail() { printf 'ERROR: %s\n' "$*" >&2; exit 1; }
 
@@ -37,7 +42,8 @@ k create namespace "$NS"
 trap cleanup EXIT
 trap 'exit 130' INT
 trap 'exit 143' TERM
-kn apply -f "$ROOT/lab/check/workloads.yaml"
+sed -e "s/cka-10days-worker2/$WORKER2/g" -e "s/cka-10days-worker/$WORKER1/g" \
+  "$ROOT/lab/check/workloads.yaml" | kn apply -f -
 kn rollout status deployment/web --timeout=300s
 kn wait --for=condition=Ready pod/allowed pod/denied --timeout=180s
 kn wait --for=jsonpath='{.status.phase}'=Bound pvc/web-data --timeout=60s

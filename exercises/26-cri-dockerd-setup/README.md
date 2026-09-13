@@ -4,6 +4,8 @@
 
 Install and configure cri-dockerd as a container runtime alternative to containerd. Essential for clusters using Docker as the container runtime.
 
+**Local VM lab:** use disposable Ubuntu VMs from [the bare lab](../../lab/vms/README.md#todos-los-ejercicios-con-sus-prerrequisitos). The legacy `.deb` example below targets Ubuntu Focal/amd64, not Ubuntu 24.04/arm64: use the architecture-aware binary installation in [exercise 18](../18-cri-dockerd-setup/README.md). Do not apply the legacy kubelet edits below on this kubeadm lab: `/etc/kubernetes/kubelet.conf` is a kubeconfig, not a runtime-flags file. For a fresh node, pass `--cri-socket=unix:///run/cri-dockerd.sock` to `kubeadm init/join`. A live runtime migration requires draining and updating the actual kubelet configuration before restarting.
+
 ## Tasks
 
 1. SSH into a worker node

@@ -37,3 +37,5 @@ __pycache__/
 
 # Isolated CKA lab credentials, downloads and practice answers
 .lab/
+# Guard against accidental direct Vagrant commands outside the lab wrapper.
+lab/vms/.vagrant/

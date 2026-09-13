@@ -8,6 +8,7 @@ on:
       - 'exercises/**'
       - 'lab/**'
       - 'scripts/lab.sh'
+      - 'scripts/vm-lab.sh'
       - 'scripts/check-lab.sh'
       - 'scripts/exam-setup.sh'
       - '**.yaml'
@@ -19,6 +20,7 @@ on:
       - 'exercises/**'
       - 'lab/**'
       - 'scripts/lab.sh'
+      - 'scripts/vm-lab.sh'
       - 'scripts/check-lab.sh'
       - 'scripts/exam-setup.sh'
       - '**.yaml'
@@ -37,7 +39,7 @@ jobs:
         run: python -m pip install -r lab/requirements-dev.txt
       - name: Check shell syntax
         run: |
-          for script in scripts/lab.sh scripts/check-lab.sh scripts/exam-setup.sh lab/bashrc; do
+          for script in scripts/lab.sh scripts/vm-lab.sh scripts/check-lab.sh scripts/exam-setup.sh lab/bashrc lab/vms/bootstrap.sh lab/vms/init.sh; do
             bash -n "$script"
           done
       - name: Test lab configuration and isolation

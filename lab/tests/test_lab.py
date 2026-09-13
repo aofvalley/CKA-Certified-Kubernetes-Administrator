@@ -42,10 +42,11 @@ class ConfigurationTests(unittest.TestCase):
         self.assertEqual(routes[0]["spec"]["gatewayClassName"], gateway_class["metadata"]["name"])
 
     def test_guide_local_links_exist(self):
-        for target in re.findall(r"\]\(([^)]+)\)", (ROOT / "lab/README.md").read_text()):
-            if not target.startswith(("https://", "#")):
-                with self.subTest(target=target):
-                    self.assertTrue((ROOT / "lab" / target.split("#")[0]).exists())
+        for guide in (ROOT / "lab").rglob("*.md"):
+            for target in re.findall(r"\]\(([^)]+)\)", guide.read_text()):
+                if not target.startswith(("https://", "#")):
+                    with self.subTest(guide=guide, target=target):
+                        self.assertTrue((guide.parent / target.split("#")[0]).exists())
 
 
 class CommandTests(unittest.TestCase):

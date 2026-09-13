@@ -4,6 +4,8 @@
 
 Upgrade a cluster from one minor version to the next using kubeadm. The CKA frequently asks this — you need to know the exact sequence.
 
+**Local VM lab:** start with [the Ubuntu/kubeadm lab](../../lab/vms/README.md), which runs 1.34.11. Use the [1.34.11 → 1.35.8 procedure](../../lab/vms/upgrade.md) for this environment: it includes the minor-version apt repository change, control-plane drain and the correct worker upgrade sequence. To repeat, `bash scripts/vm-lab.sh reset full --yes` recreates the three VMs and deletes their data.
+
 ## Tasks
 
 1. Check the current cluster version (`k get nodes`, `kubeadm version`)

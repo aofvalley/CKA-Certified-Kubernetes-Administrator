@@ -1,9 +1,14 @@
-# Loaded only by `bash scripts/lab.sh shell`; does not change the user's shell.
+# Loaded only by the lab CLI shell commands; does not change the user's shell.
 export EXAM_CONFIGURE_VIM=false
 source "$CKA_LAB_ROOT/scripts/exam-setup.sh"
 export CKA_LAB_VIMRC="$CKA_LAB_ROOT/lab/vimrc"
 export VIMINIT='execute "source " . fnameescape($CKA_LAB_VIMRC)'
-export HISTFILE="$CKA_LAB_ROOT/.lab/bash_history"
-PS1='[CKA LAB] \w \$ '
+if [[ "${CKA_LAB_BACKEND:-kind}" == vms ]]; then
+  export HISTFILE="$CKA_LAB_ROOT/.lab/vms/bash_history"
+  PS1='[CKA VMs | macOS] \w \$ '
+else
+  export HISTFILE="$CKA_LAB_ROOT/.lab/bash_history"
+  PS1='[CKA kind] \w \$ '
+fi
 cd "$CKA_LAB_ROOT" || return
 printf '\nLaboratorio aislado. Salir: exit. Guia: lab/README.md\n'

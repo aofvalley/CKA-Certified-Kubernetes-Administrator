@@ -8,7 +8,20 @@ Revisa otra vez la versión y las reglas en tu portal antes del examen: pueden c
 
 **Referencia rápida:** [chuleta CKA en español](../cheatsheet/cka-cheatsheet-es.md), con comandos, verificaciones y errores típicos. Úsala para practicar, no como material de consulta durante el examen.
 
-## Entrar y trabajar
+## Entorno principal: VMs Linux con kubeadm
+
+**La preparación se hace ahora en [tres VMs Ubuntu con VirtualBox y Vagrant](vms/README.md)**, no repartiendo los ejercicios entre Docker y otro entorno. Empiezan en **Kubernetes 1.34.11** para practicar [el upgrade real a 1.35.8](vms/upgrade.md). Incluyen SSH, systemd, apt, containerd, etcd y los complementos de redes, métricas y almacenamiento.
+
+```bash
+bash scripts/vm-lab.sh up
+bash scripts/vm-lab.sh check
+bash scripts/vm-lab.sh node cp   # SSH a Ubuntu; sudo -i para administrar
+bash scripts/vm-lab.sh shell     # Bash en macOS para manifiestos y kubectl
+```
+
+La ruta de diez días de abajo usa este entorno. Para operaciones habituales sustituye `scripts/lab.sh` por `scripts/vm-lab.sh`. Las prácticas destructivas y la instalación de CNI desde cero requieren preparar o recrear **las mismas VMs**; los pasos están en su guía. Tu laboratorio kind se conserva como alternativa.
+
+## Alternativa Docker: entrar y trabajar con kind
 
 Desde la raíz del repositorio, con Docker en marcha:
 
@@ -40,10 +53,10 @@ bash scripts/lab.sh doctor
 
 El kubeconfig administrativo se guarda con permisos `600` en `.lab/kubeconfig`. `.lab/` está excluido de Git y contiene también tus respuestas e historial. No publiques esa carpeta ni uses `git add -f` sobre ella. Los scripts fijan explícitamente el contexto del laboratorio; fuera de la sesión de práctica, tu `kubectl` normal sigue usando su configuración habitual.
 
-## Qué queda instalado
+## Qué queda instalado en la alternativa kind
 
 | Componente | Versión / configuración | Prácticas |
-|---|---|---|
+| --- | --- | --- |
 | kind | Requiere 0.32 o posterior | Cluster local desechable en Docker |
 | Kubernetes | 1.35.5, imagen fijada por digest, ARM64/AMD64 | Un control plane + dos workers |
 | Calico / Tigera Operator | 3.32.2; VXLAN, sin BGP | NetworkPolicy, comunicación entre nodos, CRDs y operador |
@@ -105,10 +118,12 @@ bash scripts/lab.sh up
 
 Tus respuestas en `.lab/answers/` se conservan; los datos de PVC dentro de los nodos se pierden. No uses `docker system prune` ni borres otros clusters. Cerrar la terminal no borra el laboratorio; parar Docker pausa su disponibilidad.
 
-## Qué practicar aquí y qué requiere otro entorno
+## Limitaciones de la alternativa kind
+
+Esta tabla describe **solo kind**, no el laboratorio principal de VMs. No es la distribución recomendada del plan de estudio; con las VMs se practican también las tareas de sistema.
 
 | Ejercicios del repositorio | Entorno y adaptación |
-|---|---|
+| --- | --- |
 | 01–08, 12–17, 19–25, 28 | Este laboratorio; sustituye nombres de nodos, clases y namespaces según corresponda |
 | 10, 11, 17, 29 | kind permite inspeccionar/fallar/reparar componentes; entra con `node`, no con SSH. Guarda copias fuera de la carpeta de manifiestos |
 | 09: actualización kubeadm | **VMs Linux o simulador**; los binarios de kind no siguen el ciclo de paquetes apt del ejercicio |
@@ -117,7 +132,7 @@ Tus respuestas en `.lab/answers/` se conservan; los datos de PVC dentro de los n
 | 30: TLS del control plane | Adaptar a los manifiestos y certificados reales del nodo; reservar pruebas destructivas para simulador/cluster desechable |
 | 31: Argo CD | Opcional tras cubrir el temario esencial; útil para operadores/CRDs, no priorices una aplicación concreta sobre los dominios oficiales |
 
-No instalamos VMs adicionales: para las prácticas de sistema usa primero el **simulador incluido en tu inscripción**, si tu modalidad lo incluye. La ficha oficial describe dos intentos, de 36 horas cada uno desde su activación. Comprueba tus derechos y no actives una sesión hasta disponer de tiempo para aprovecharla.
+En la ruta principal las prácticas de sistema se realizan en las [VMs locales](vms/README.md). Conserva el **simulador incluido en tu inscripción**, si tu modalidad lo incluye, para practicar bajo tiempo y con el flujo del examen. La ficha oficial describe dos intentos, de 36 horas cada uno desde su activación. Comprueba tus derechos y no actives una sesión hasta disponer de tiempo para aprovecharla.
 
 kind **no equivale al examen completo**: faltan instalación de máquinas desde cero, gestión real de paquetes, un control plane HA y el flujo SSH del escritorio remoto. Tampoco es almacenamiento CSI de producción: `standard` usa volúmenes locales. Debes comprender CNI/CSI/CRI, HA, `kubeadm init/join/upgrade`, copias/restauración de etcd y diagnóstico Linux, aunque algunas prácticas se hagan fuera.
 
@@ -126,19 +141,19 @@ kind **no equivale al examen completo**: faltan instalación de máquinas desde 
 Pesos oficiales: **troubleshooting 30 %, arquitectura/instalación/configuración 25 %, redes 20 %, workloads/scheduling 15 %, almacenamiento 10 %**. Dedica el 70–80 % del tiempo al teclado, no a leer todo el README.
 
 | Día | Fecha | Trabajo principal | Evidencia de avance |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | 1 | 13 sep | Diagnóstico de abajo; ejercicios 01, 03 y 06. Pods, YAML, namespaces, ConfigMap/Secret y rollout | Crear/verificar/reparar una aplicación sin copiar soluciones |
 | 2 | 14 sep | 05 y 28; Services, EndpointSlices, DNS/CoreDNS y NetworkPolicy. Añadir avería de selector/puerto | Demostrar conexiones permitidas y denegadas; localizar el fallo con evidencia |
 | 3 | 15 sep | 04, 08, 20, 22–24; RBAC, ServiceAccounts, drain/cordon, requests/limits, taints y affinity | Verificar permisos con `auth can-i` y recuperar un Pod Pending |
 | 4 | 16 sep | 07, 12, 25 y 16; PV/PVC, reclaim policy, WaitForFirstConsumer, StatefulSet y HPA | Explicar por qué un PVC espera y demostrar que conserva datos al recrear un Pod |
 | 5 | 17 sep | 10, 11, 17 y 29; kubelet, runtime, logs, static Pods, API server y etcd | Resolver tres fallos en menos de 15 min cada uno; guardar/restaurar configuración |
-| 6 | 18 sep | Instalación/upgrade con kubeadm, CRI/CNI/CSI y HA; **simulador 1: 120 min**, después revisión | Ejecutar tareas Linux en entorno apropiado y clasificar los fallos del simulador |
+| 6 | 18 sep | [Upgrade local 1.34 → 1.35](vms/upgrade.md), CRI/CNI/CSI y HA; **simulador 1: 120 min**, después revisión | Ejecutar tareas Linux en las VMs y clasificar los fallos del simulador |
 | 7 | 19 sep | 13, 14, 15 y 19; Helm, Kustomize, Ingress y Gateway API. Inspeccionar CRDs/operador Calico | Instalar/actualizar un chart y servir HTTP por Ingress y HTTPRoute; corregir simulador 1 |
 | 8 | 20 sep | **Simulador 2: 120 min**, sin ayuda; 90 min de corrección y repetición | Priorizar por puntos/tiempo, conservar 15–20 min para verificación |
 | 9 | 21 sep | [Mock 01](../mock-exams/MOCK-EXAM-01.md) o [Mock 02](../mock-exams/MOCK-EXAM-02.md), el no practicado, 120 min; reforzar los tres puntos débiles | Objetivo orientativo ≥80 % de los puntos practicables, sin soluciones y dentro de tiempo |
 | 10 | 22 sep | Repaso ligero de errores, documentación, comandos y estrategia; revisión PSI, documento de identidad y hora/zona del examen | Dos o tres tareas conocidas sin atascarte; descansar, no abrir temas grandes |
 
-En los mocks del repositorio prepara los prerrequisitos que pide cada enunciado: el temporizador **no despliega averías ni configura máquinas**. Las tareas de VMs se hacen en el simulador o se marcan «no practicadas», nunca como aprobadas. El runner solo presenta un extracto inicial: mantén abierto el archivo completo de preguntas. Usa las soluciones únicamente al corregir; no confundas una puntuación parcial local con una predicción oficial.
+En los mocks del repositorio prepara los prerrequisitos que pide cada enunciado: el temporizador **no despliega averías ni configura máquinas**. Las tareas de sistema se hacen por SSH en las VMs; prepara su estado inicial y no marques como aprobada una tarea que no hayas ejecutado. El runner solo presenta un extracto inicial: mantén abierto el archivo completo de preguntas. Usa las soluciones únicamente al corregir; no confundas una puntuación parcial local con una predicción oficial.
 
 Bloque diario normal: **20 min** de repetición sin apuntes, **100 min** de ejercicios, **45 min** de troubleshooting, **35 min** de tareas cronometradas y **20 min** para explicar errores y repetirlos. En días de simulador sustituye ese bloque por las dos horas de examen y la corrección.
 
@@ -146,10 +161,10 @@ Si dispones de menos tiempo, conserva troubleshooting + RBAC/kubeadm + redes, y 
 
 ## Primera sesión: diagnóstico de 45 minutos
 
-Entra con `bash scripts/lab.sh shell`. Lee los enunciados de [01](../exercises/01-pod-basics/README.md), [03](../exercises/03-configmap-secret/README.md), [06](../exercises/06-deployment-rollout/README.md) y [04](../exercises/04-rbac/README.md), sin abrir sus soluciones.
+Entra con `bash scripts/vm-lab.sh shell`, o por SSH con `bash scripts/vm-lab.sh node cp` para practicar desde Ubuntu. Lee los enunciados de [01](../exercises/01-pod-basics/README.md), [03](../exercises/03-configmap-secret/README.md), [06](../exercises/06-deployment-rollout/README.md) y [04](../exercises/04-rbac/README.md), sin abrir sus soluciones.
 
 | Minutos | Tarea | Criterio |
-|---|---|---|
+| --- | --- | --- |
 | 0–10 | Ejercicio 01 | Pod Running/Ready, salida y descripción verificadas |
 | 10–20 | Ejercicio 03 | Aplicación recibe los valores del ConfigMap y Secret |
 | 20–30 | Ejercicio 06 | Actualización y rollback con versión y réplicas verificadas |
@@ -185,9 +200,9 @@ Sin tocar el cluster:
 python3 -m venv .lab/venv
 .lab/venv/bin/python -m pip install -r lab/requirements-dev.txt
 .lab/venv/bin/python -m unittest discover -s lab/tests -v
-for script in scripts/lab.sh scripts/check-lab.sh scripts/exam-setup.sh lab/bashrc; do
+for script in scripts/lab.sh scripts/vm-lab.sh scripts/check-lab.sh scripts/exam-setup.sh lab/bashrc lab/vms/bootstrap.sh lab/vms/init.sh; do
   bash -n "$script" || break
 done
 ```
 
-Las pruebas locales cubren el aislamiento, las protecciones del CLI y la sintaxis/configuración YAML; `lab.sh check` cubre el comportamiento real del cluster.
+Las pruebas locales cubren el aislamiento, las protecciones del CLI y la sintaxis/configuración YAML; `vm-lab.sh check` cubre las VMs y el comportamiento real del cluster (`lab.sh check` sigue disponible para kind).

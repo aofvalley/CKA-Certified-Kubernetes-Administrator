@@ -4,6 +4,8 @@
 
 Install and configure cri-dockerd as a container runtime for a Kubernetes node. This is common when upgrading clusters that need Docker support or when preparing a mixed-runtime cluster.
 
+**Local VM lab:** run this over SSH in Ubuntu, not on macOS or a kind node. Apple Silicon VMs need Linux **arm64**, not amd64 or Darwin binaries. Use a disposable node from [the bare lab](../../lab/vms/README.md#todos-los-ejercicios-con-sus-prerrequisitos); do not replace the runtime of a live node unintentionally.
+
 ## Context
 
 Kubernetes deprecated dockershim in v1.20 and removed it in v1.24. To continue using Docker as a container runtime, you must install CRI-dockerd explicitly. The exam may ask you to prepare a node to join a cluster using Docker via CRI-dockerd, or troubleshoot why a node can't join because the runtime isn't configured.
@@ -23,7 +25,7 @@ Kubernetes deprecated dockershim in v1.20 and removed it in v1.24. To continue u
 <details>
 <summary>Stuck? Click to reveal hints</summary>
 
-- Download the latest amd64 release from https://github.com/Mirantis/cri-dockerd/releases
+- Download the Linux release matching `dpkg --print-architecture` from https://github.com/Mirantis/cri-dockerd/releases
 - Use `curl -s https://api.github.com/repos/Mirantis/cri-dockerd/releases/latest` to get the latest version automatically
 - The socket path must match what you pass to kubelet: `--cri-socket=unix:///run/cri-dockerd.sock`
 - Kernel modules persist only if added to `/etc/modules-load.d/`
@@ -61,7 +63,7 @@ sudo systemctl status cri-docker.socket
 ls -la /run/cri-dockerd.sock
 
 # Test CRI socket connectivity
-sudo crictl version
+sudo crictl --runtime-endpoint unix:///run/cri-dockerd.sock version
 ```
 
 ## Cleanup
@@ -112,8 +114,9 @@ sudo systemctl enable docker
 VER=$(curl -s https://api.github.com/repos/Mirantis/cri-dockerd/releases/latest | grep tag_name | cut -d '"' -f 4 | sed 's/v//')
 echo "Installing CRI-dockerd version: $VER"
 
-wget https://github.com/Mirantis/cri-dockerd/releases/download/v${VER}/cri-dockerd-${VER}.amd64.tgz
-tar xzf cri-dockerd-${VER}.amd64.tgz
+ARCH=$(dpkg --print-architecture)
+wget "https://github.com/Mirantis/cri-dockerd/releases/download/v${VER}/cri-dockerd-${VER}.${ARCH}.tgz"
+tar xzf "cri-dockerd-${VER}.${ARCH}.tgz"
 sudo mv cri-dockerd/cri-dockerd /usr/local/bin/
 cri-dockerd --version
 
@@ -167,7 +170,7 @@ sudo systemctl status cri-docker.socket
 
 # Step 9: Verify socket is accessible
 ls -la /run/cri-dockerd.sock
-sudo crictl version
+sudo crictl --runtime-endpoint unix:///run/cri-dockerd.sock version
 
 # Step 10: For kubeadm, use this when initializing or joining:
 # sudo kubeadm init --cri-socket unix:///run/cri-dockerd.sock

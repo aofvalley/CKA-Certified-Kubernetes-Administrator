@@ -4,6 +4,8 @@
 
 Install a full CNI plugin using the Tigera Operator for Calico, including networking and security policies. Essential for multi-node clusters.
 
+**Local VM lab:** `up` already installs Calico. To practice from scratch, use [reset bare and manual init/join](../../lab/vms/README.md#todos-los-ejercicios-con-sus-prerrequisitos), then install a single CNI. This lab uses pod CIDR `172.20.0.0/16`, private node addresses `192.168.57.0/24` and Calico 3.32.2; use [its values](../../lab/vms/calico-values.yaml), not the legacy version/CIDR in the example below. `calico-node` is a DaemonSet: verify it with `kubectl -n calico-system rollout status daemonset/calico-node`.
+
 ## Tasks
 
 1. Verify cluster CIDR from kube-controller-manager
